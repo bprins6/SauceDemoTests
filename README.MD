@@ -1,17 +1,13 @@
-# SauceDemo UI Automation Tests
+# SauceDemo UI Automation Framework
 
 ## Overview
 
-This project contains a simple UI automation framework built using **C#**, **Playwright**, and **NUnit**.
+This project is a UI automation framework developed as part of a technical assessment using **C#**, **Microsoft Playwright**, and **NUnit**.
 
-The framework automates the core user journeys on the SauceDemo website:
+The framework automates the core user journeys on the SauceDemo website while following the **Page Object Model (POM)** design pattern for improved maintainability and code reuse.
 
-* Successful Login
-* Unsuccessful Login
-* Add Item to Basket
-* Complete Checkout
+**Application Under Test**
 
-Website Tested:
 https://www.saucedemo.com/
 
 ---
@@ -22,13 +18,14 @@ https://www.saucedemo.com/
 * .NET 10
 * Microsoft Playwright
 * NUnit
+* ExtentReports
 * Visual Studio Code
 
 ---
 
 ## Project Structure
 
-```
+```text
 SauceDemoTests
 │
 ├── Pages
@@ -41,72 +38,90 @@ SauceDemoTests
 │   └── CheckoutTests.cs
 │
 ├── BaseTest.cs
+├── ExtentReport.cs
 ├── SauceDemoTests.csproj
 └── README.md
 ```
 
 ---
 
-## Test Scenarios
+## Automated Test Scenarios
 
 ### Successful Login
 
-* Navigate to the login page
-* Enter valid credentials
-* Verify the user is successfully logged in
+* Navigate to SauceDemo.
+* Login with valid credentials.
+* Verify the Products page is displayed.
 
 ### Unsuccessful Login
 
-* Enter invalid credentials
-* Verify the error message is displayed
+* Login with invalid credentials.
+* Verify the appropriate error message is displayed.
 
 ### Add Item to Basket
 
-* Login with a valid user
-* Add the Sauce Labs Backpack to the cart
-* Verify the cart badge displays one item
+* Login with valid credentials.
+* Add the Sauce Labs Backpack to the shopping cart.
+* Verify the shopping cart badge displays one item.
 
 ### Complete Checkout
 
-* Login
-* Add an item to the cart
-* Complete the checkout process
-* Verify the order confirmation message
+* Login with valid credentials.
+* Add an item to the shopping cart.
+* Complete the checkout process.
+* Verify the checkout completed successfully.
+* Verify the order confirmation message is displayed.
 
 ---
 
-## How to Run
+## Running the Tests
 
-1. Clone the repository
+### 1. Restore NuGet packages
 
-2. Restore NuGet packages
-
-```
+```bash
 dotnet restore
 ```
 
-3. Build the project
+### 2. Build the project
 
-```
+```bash
 dotnet build
 ```
 
-4. Install Playwright browsers
+### 3. Install Playwright browsers
 
-```
+```powershell
 .\bin\Debug\net10.0\playwright.ps1 install
 ```
 
-5. Run all tests
+### 4. Execute all tests
 
-```
+```bash
 dotnet test
 ```
 
 ---
 
-## Notes
+## Test Report
 
-* The project uses the Page Object Model (POM) to separate page interactions from test logic.
-* The browser runs in headed mode (`Headless = false`) so the test execution can be observed.
-* The framework has been intentionally kept simple for readability and ease of maintenance.
+An Extent HTML report is automatically generated after the test execution.
+
+The report includes:
+
+* Test summary
+* Passed and failed test results
+* Execution time
+* Failure details
+* System information
+
+The report is generated in the NUnit working directory after the tests complete successfully.
+
+---
+
+## Design Pattern
+
+This project follows the * (POM)** design pattern.
+
+* Reusable page methods
+
+
