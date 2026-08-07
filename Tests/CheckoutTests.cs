@@ -7,6 +7,7 @@ namespace SauceDemoTests.Tests;
 public class CheckoutTests : BaseTest
 {
     [Test]
+    [Order(4)]
     public async Task CompleteCheckout()
     {
         var loginPage = new LoginPage(Page);
@@ -31,12 +32,24 @@ public class CheckoutTests : BaseTest
 
         await Page.ClickAsync("#continue");
 
+        // Verify we're on the overview page
+        Assert.That(await Page.Locator(".title").InnerTextAsync(), Is.EqualTo("Checkout: Overview"));
+
         // Finish order
         await Page.ClickAsync("#finish");
 
-        // Verify success
-        var message = await Page.Locator(".complete-header").InnerTextAsync();
+        // Verify checkout completed
+        Assert.Multiple(async () =>
+        {
+            Assert.That(await Page.Locator(".title").InnerTextAsync(), Is.EqualTo("Checkout: Complete!"));
 
-        Assert.That(message, Is.EqualTo("Thank you for your order!"));
+            Assert.That(await Page.Locator(".complete-header").InnerTextAsync(),
+                Is.EqualTo("Thank you for your order!"));
+
+            Assert.That(await Page.Locator(".complete-text").InnerTextAsync(),
+                Does.Contain("Your order has been dispatched"));
+
+            Assert.That(await Page.Locator("#back-to-products").IsVisibleAsync(), Is.True);
+        });
     }
 }

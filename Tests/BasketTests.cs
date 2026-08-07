@@ -7,6 +7,7 @@ namespace SauceDemoTests.Tests;
 public class BasketTests : BaseTest
 {
     [Test]
+    [Order(3)]
     public async Task AddItemToBasket()
     {
         var loginPage = new LoginPage(Page);
